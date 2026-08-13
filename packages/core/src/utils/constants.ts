@@ -24,6 +24,7 @@ export enum ErrorCode {
   METHOD_NOT_ALLOWED = 'METHOD_NOT_ALLOWED',
   RATE_LIMIT_EXCEEDED = 'RATE_LIMIT_EXCEEDED',
   BAD_REQUEST = 'BAD_REQUEST',
+  PAYLOAD_TOO_LARGE = 'PAYLOAD_TOO_LARGE',
   UNAUTHORIZED = 'UNAUTHORIZED',
   FORBIDDEN = 'FORBIDDEN',
   // Kept distinct rather than collapsed into UNAUTHORIZED: each has its own
@@ -116,6 +117,10 @@ export const ErrorMap: Record<ErrorCode, ErrorDetails> = {
   [ErrorCode.BAD_REQUEST]: {
     statusCode: 400,
     message: 'Bad request',
+  },
+  [ErrorCode.PAYLOAD_TOO_LARGE]: {
+    statusCode: 413,
+    message: 'Request body is too large',
   },
   [ErrorCode.UNAUTHORIZED]: {
     statusCode: 401,

@@ -7,6 +7,7 @@ import {
 } from '@aiostreams/core';
 import { createResponse } from '../utils/responses.js';
 import { ZodError } from 'zod';
+import { isPayloadTooLargeError } from './requestBody.js';
 
 const logger = createLogger('server');
 
@@ -22,7 +23,9 @@ export const errorMiddleware = (
   }
 
   let error;
-  if (!(err instanceof APIError) && !(err instanceof ZodError)) {
+  if (isPayloadTooLargeError(err)) {
+    error = new APIError(constants.ErrorCode.PAYLOAD_TOO_LARGE);
+  } else if (!(err instanceof APIError) && !(err instanceof ZodError)) {
     // log unexpected errors
     logger.error(err);
     logger.error(err.stack);

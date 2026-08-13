@@ -63,6 +63,7 @@ import {
   stremioCatalogRateLimiter,
   stremioSubtitleRateLimiter,
   requireSessionIfAuthRequired,
+  apiJsonParser,
 } from './middlewares/index.js';
 
 import {
@@ -141,6 +142,7 @@ export const staticRoot = path.join(__dirname, './static');
 
 app.use(ipMiddleware);
 app.use(loggerMiddleware);
+app.use(`/api/v${constants.API_VERSION}`, apiJsonParser);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
